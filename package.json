@@ -1,0 +1,15 @@
+{
+  "name": "flake-watcher",
+  "version": "0.0.0",
+  "description": "Watch and host a nix flake",
+  "author": {
+    "name": "Zebreus",
+    "email": "lennarteichhorn@googlemail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zebreus/flake-watcher"
+  },
+  "license": "MIT",
+  "type": "module"
+}
