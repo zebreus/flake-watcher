@@ -10,7 +10,10 @@ rustPlatform.buildRustPackage rec {
   src = ./.;
 
   nativeBuildInputs = [
+    rustfmt
   ];
+  RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+
 
   cargoLock = {
     lockFile = ./Cargo.lock;
