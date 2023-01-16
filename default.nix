@@ -5,7 +5,7 @@
 with pkgs;
 rustPlatform.buildRustPackage rec {
   pname = "flake-watcher";
-  version = "11.0.2";
+  version = "0.1.0";
 
   src = ./.;
 
