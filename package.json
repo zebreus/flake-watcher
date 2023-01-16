@@ -58,6 +58,10 @@
     "flake-watcher": "dist/index.js"
   },
   "dependencies": {
+    "@types/command-line-args": "^5.2.0",
+    "@types/command-line-usage": "^5.0.2",
+    "command-line-args": "^5.2.1",
+    "command-line-usage": "^6.1.3",
     "glob-watcher": "^5.0.5"
   }
 }

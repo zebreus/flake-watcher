@@ -2,7 +2,7 @@ import { exec } from "child_process"
 import GlobWatcher from "glob-watcher"
 import { resolve } from "path"
 
-type BuildOptions = {
+export type BuildOptions = {
   // The path to the package to build. In `nix build .#foo`, `.` is the path.
   //
   // Any changes to files in this path will trigger a rebuild.
