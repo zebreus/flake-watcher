@@ -1,6 +1,6 @@
 [package]
 name = "flake-watcher"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Zebreus"]
 rust-version = "1.65"
 description = "A simple tool to watch for changes in a nix flake and run a command when it changes"
