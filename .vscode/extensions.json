@@ -1,9 +1,12 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "eamodio.gitlens",
-    "wix.vscode-import-cost",
-    "orta.vscode-jest",
-    "esbenp.prettier-vscode"
+    "vadimcn.vscode-lldb",
+    "rust-lang.rust-analyzer",
+    "serayuzgur.crates",
+    "swellaby.vscode-rust-test-adapter",
+    "bungcip.better-toml",
+    "belfz.search-crates-io",
+    "hbenl.vscode-test-explorer",
+    "hbenl.test-adapter-converter"
   ]
 }
