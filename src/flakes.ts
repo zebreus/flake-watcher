@@ -3,9 +3,16 @@ import GlobWatcher from "glob-watcher"
 import { resolve } from "path"
 
 type BuildOptions = {
+  // The path to the package to build. In `nix build .#foo`, `.` is the path.
+  //
+  // Any changes to files in this path will trigger a rebuild.
   path: string
+  // The name of the package to build. In `nix build .#foo`, `foo` is the package name.
   packageName: string | undefined
+  // Additional options passed to nix build
   buildOptions?: string[]
+  // Skip the first build before watching
+  skipInitialBuild?: boolean
 }
 
 type ResolvedBuildOptions = Required<BuildOptions> & {
@@ -17,12 +24,14 @@ const resolveBuildOptions = (options: Partial<BuildOptions> = {}): ResolvedBuild
   const packageName = options.packageName
   const targetPackage = [path, packageName].filter(v => v).join("#")
   const buildOptions = options.buildOptions || []
+  const skipInitialBuild = options.skipInitialBuild || false
 
   return {
     path,
     packageName,
     targetPackage,
     buildOptions,
+    skipInitialBuild,
   }
 }
 
@@ -62,19 +71,33 @@ const watch = (callback: () => Promise<void> | void, path: string) => {
   })
 }
 
-export const watchFlake = (
+export const watchFlake = async (
   callback: (new_path: string) => Promise<void> | void,
   options: Partial<BuildOptions> = {}
 ) => {
   const resolvedOptions = resolveBuildOptions(options)
-  const { path } = resolvedOptions
+  const { path, skipInitialBuild } = resolvedOptions
 
-  watch(async () => {
+  let lastOutput = ""
+
+  const changeHandler = async () => {
     try {
       const result = await build(resolvedOptions)
+      const unchanged = result === lastOutput
+      if (unchanged) {
+        return
+      }
+
+      lastOutput = result
       await callback(result)
     } catch (e) {
       console.error(e)
     }
-  }, path)
+  }
+
+  if (!skipInitialBuild) {
+    await changeHandler()
+  }
+
+  watch(changeHandler, path)
 }
