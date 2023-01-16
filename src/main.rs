@@ -1,6 +1,6 @@
 use clap::Parser;
 
-use crate::flakes::{build, resolveBuildOptions, BuildOptions};
+use crate::flakes::{resolve_build_options, watch_flake, BuildOptions};
 
 mod flakes;
 
@@ -39,13 +39,7 @@ fn main() {
         skip_initial_build: args.skip_initial_build,
     };
 
-    let resolved_build_options = resolveBuildOptions(build_options);
-    let result = build(resolved_build_options);
-    println!(
-        "Current path {}",
-        match result {
-            Ok(path) => path,
-            Err(err) => err,
-        }
-    );
+    let resolved_build_options = resolve_build_options(build_options);
+
+    watch_flake(&resolved_build_options);
 }
